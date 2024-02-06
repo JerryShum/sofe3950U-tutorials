@@ -1,0 +1,187 @@
+Q1:
+
+#include <stdio.h>
+
+int main() {
+	// setting up the variables needed
+	char first_name[256];
+	int age;
+	float height;
+
+	// Getting names, age, and height in cm
+	printf("Enter your first name: ");
+	scanf("%s", first_name);
+	printf("Enter your age: ");
+	scanf("%d", &age);
+	printf("Enter your height in cm: ");
+	scanf("%f", &height);
+
+	// Printing the information
+	printf("Your name is %s, you are %d years old, and your height is %.2f cm.\n", first_name, age, height);
+
+	return 0;
+}
+
+----
+
+Q2:
+
+#include <stdio.h>
+
+int main()
+{
+    FILE *file = fopen("question2.txt", "r");
+    if(file == NULL)
+    {
+        printf("question2.txt could not be read.\n");
+        return 1;
+    }
+
+    int numbers[10];
+    for(int i = 0; i < 10; i++)
+    {
+        fscanf(file, "%d", &numbers[i]);
+    }
+
+    for(int i = 0; i < 10; i++)
+    {
+        printf("%d\n", numbers[i]);
+    }
+    fclose(file);
+    return 0;
+}
+
+----
+
+Q3:
+
+#include <stdio.h>
+
+typedef struct student
+{
+    int student_id;
+    int age;
+    int year_started;
+} student;
+
+void save_student(const student student)
+{
+    FILE *file = fopen("students.txt", "a+");
+    if(file == NULL)
+    {
+        printf("students.txt could not be written to.\n");
+        return;
+    }
+
+    fprintf(file, "%d,%d,%d\n", student.student_id, student.age, student.year_started);
+    fclose(file);
+}
+
+int main()
+{
+    student student;
+    printf("Enter student id: ");
+    scanf("%d", &student.student_id);
+    printf("Enter student age: ");
+    scanf("%d", &student.age);
+    printf("Enter year started: ");
+    scanf("%d", &student.year_started);
+    save_student(student);
+    return 0;
+}
+
+----
+
+Q4:
+
+#include <stdio.h>
+#include <stdlib.h>
+
+int main()
+{
+    char *professor = calloc(256, sizeof(char));
+    int *student_ids;
+    int *grades;
+
+    printf("Enter your name, professor: ");
+    scanf("%s", professor);
+    printf("Enter the number of students: ");
+    int num_students;
+    scanf("%d", &num_students);
+
+    student_ids = malloc(sizeof(int) * num_students);
+    grades = malloc(sizeof(int) * num_students);
+
+    free(professor);
+    free(student_ids);
+    free(grades);
+
+    return 0;
+}
+
+----
+
+Q5:
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+
+typedef struct grade
+{
+    int student_id;
+    int grade;
+} grade;
+
+void grade_students(grade *grades, int num_students)
+{
+    FILE *file = fopen("grades.txt", "w");
+    if(file == NULL)
+    {
+        printf("grades.txt could not be written to.\n");
+        return;
+    }
+    int grade_sum = 0;
+    for(int i = 0; i < num_students; i++)
+    {
+        grade g = *(grades + i);
+        grade_sum += g.grade;
+        fprintf(file, "%d,%d\n", g.student_id, g.grade);
+    }
+    double average_grade = grade_sum / num_students;
+    double standard_deviation = 0;
+    for(int i = 0; i < num_students; i++)
+    {
+        grade g = *(grades + i);
+        standard_deviation += pow(g.grade - average_grade, 2);
+    }
+    standard_deviation = sqrt(standard_deviation / num_students);
+    fprintf(file, "Average grade: %f\n", average_grade);
+    fprintf(file, "Standard deviation: %f\n", standard_deviation);
+}
+
+int main()
+{
+    char *professor = calloc(4096, sizeof(char));
+    printf("Enter your name, professor: ");
+    scanf("%s", professor);
+    printf("Enter the number of students: ");
+    int num_students;
+    scanf("%d", &num_students);
+    grade *grades = calloc(num_students, sizeof(grade));
+    for(int i = 0; i < num_students; i++)
+    {
+        printf("Enter the student ID:");
+        int student_id;
+        scanf("%d", &student_id);
+        printf("Enter the student's grade:");
+        int student_grade;
+        scanf("%d", &student_grade);
+        grade g = {student_id, student_grade};
+        *(grades + i) = g;
+    }
+    grade_students(grades, num_students);
+    free(professor);
+    free(grades);
+    return 0;
+}
