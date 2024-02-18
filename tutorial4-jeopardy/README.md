@@ -8,12 +8,26 @@
 
 ## How to Run It
 
-Simply run the `run.sh` script.
+### Linux/MacOS
+
+Simply run the ./run.sh script.
 
 ```sh
 git clone https://github.com/JerryShum/sofe3950U-tutorials.git
 cd sofe3950U-tutorials/tutorial4-jeopardy
 ./run.sh
+```
+
+### Windows
+
+For Windows, yuo will need to have Unix Makefiles.
+
+```sh
+git clone https://github.com/JerryShum/sofe3950U-tutorials.git
+cd sofe3950U-tutorials/tutorial4-jeopardy
+make all
+./jeopardy.exe
+make clean
 ```
 
 ## Output Example
