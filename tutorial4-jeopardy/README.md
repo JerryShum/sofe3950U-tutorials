@@ -11,7 +11,9 @@
 Simply run the `run.sh` script.
 
 ```sh
-git clone 
+git clone https://github.com/JerryShum/sofe3950U-tutorials.git
+cd sofe3950U-tutorials/tutorial4-jeopardy
+./run.sh
 ```
 
 ## Output Example
