@@ -21,10 +21,10 @@
 // Put global environment variables here
 
 // Processes the answer from the user containing what is or who is and tokenizes it to retrieve the answer.
-void tokenize(char *input, char **tokens)
-{
-    return;
-}
+// void tokenize(char *input, char **tokens)
+// {
+//     return;
+// }
 
 // Displays the game results for each player, their name and final score, ranked from first to last place
 void show_results(player *players, int num_players)
@@ -37,7 +37,7 @@ void show_results(player *players, int num_players)
 }
 
 
-int main(int argc, char *argv[])
+int main()
 {
     // An array of 4 players, may need to be a pointer if you want it set dynamically
     player players[NUM_PLAYERS];
@@ -68,7 +68,7 @@ int main(int argc, char *argv[])
         players[i].score = 0;
     }
 
-    int currplayer = 0;
+    // int currplayer = 0;
     int playing = 1;
 
     // Perform an infinite loop getting command input from users until game ends
