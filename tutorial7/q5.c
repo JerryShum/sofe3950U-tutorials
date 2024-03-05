@@ -67,25 +67,22 @@ void populate_queue()
 
 void order_queue_by_priority_asc()
 {
-    struct ll_node *prev = NULL;
     struct ll_node *curr = queue;
+    struct ll_node *next = NULL;
+    struct proc temp;
     while (curr != NULL)
     {
-        struct ll_node *next = curr->next;
-        if (next != NULL && curr->process.priority > next->process.priority)
+        next = curr->next;
+        while (next != NULL)
         {
-            if (prev == NULL)
+            if (curr->process.priority > next->process.priority)
             {
-                queue = next;
+                temp = curr->process;
+                curr->process = next->process;
+                next->process = temp;
             }
-            else
-            {
-                prev->next = next;
-            }
-            curr->next = next->next;
-            next->next = curr;
+            next = next->next;
         }
-        prev = curr;
         curr = curr->next;
     }
 }
@@ -157,17 +154,19 @@ int main()
     struct proc *p = NULL;
 
     // 1. do all 0 priorities first
+    printf("Doing all 0 priorities first\n");
     while (q != NULL)
     {
         p = &(q->process);
         if (p->priority == 0)
         {
-            printf("Executing: %s, Priority: %d, Runtime: %d\n", p->name, p->priority, p->runtime);
+            printf("Child Executing: %s, Priority: %d, Runtime: %d\n", p->name, p->priority, p->runtime);
             pid = fork();
             if (pid == 0)
             {
                 sleep(p->runtime);
                 execv(p->name, NULL);
+                // kill(getpid(), SIGINT);
             }
             else
             {
@@ -175,15 +174,20 @@ int main()
                 waitpid(p->pid, NULL, 0);
                 kill(p->pid, SIGINT);
                 printf("Process | %s | with pid | %d | has finished\n", p->name, p->pid);
-                q = q->next;
+                p = delete_name(p->name);
+                free(p);
+                q = queue;
             }
+        } else {
+            q = q->next;
         }
-
     }
 
     order_queue_by_priority_asc();
+    print_queue();
 
     // 2. do all other priorities
+    printf("Now doing all other priorities\n");
     p = NULL;
     do
     {
@@ -197,6 +201,7 @@ int main()
                 // child
                 execv(p->name, NULL);
                 sleep(p->runtime);
+                // kill(getpid(), SIGINT);
             }
             else
             {
