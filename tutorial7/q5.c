@@ -166,16 +166,19 @@ int main()
             pid = fork();
             if (pid == 0)
             {
-                execv(p->name, NULL);
                 sleep(p->runtime);
+                execv(p->name, NULL);
             }
             else
             {
                 p->pid = pid;
                 waitpid(p->pid, NULL, 0);
+                kill(p->pid, SIGINT);
                 printf("Process | %s | with pid | %d | has finished\n", p->name, p->pid);
+                q = q->next;
             }
         }
+
     }
 
     order_queue_by_priority_asc();
