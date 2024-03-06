@@ -165,8 +165,8 @@ int main()
             if (pid == 0)
             {
                 sleep(p->runtime);
-                execv(p->name, NULL);
-                // kill(getpid(), SIGINT);
+                execvp(p->name, NULL);
+                kill(getpid(), SIGINT);
             }
             else
             {
@@ -204,7 +204,7 @@ int main()
                 // child
                 sleep(p->runtime);
                 execv(p->name, NULL);
-                // kill(getpid(), SIGINT);
+                kill(getpid(),SIGINT);
             }
             else
             {
