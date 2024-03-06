@@ -202,8 +202,8 @@ int main()
             if (pid == 0)
             {
                 // child
-                execv(p->name, NULL);
                 sleep(p->runtime);
+                execv(p->name, NULL);
                 // kill(getpid(), SIGINT);
             }
             else
