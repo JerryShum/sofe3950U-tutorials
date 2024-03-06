@@ -13,6 +13,8 @@
 // output will stop once it’s terminated.
 
 #define SLEEP_TIME 5
+#define ANSI_COLOR_GREEN     "\x1b[32m"
+#define ANSI_COLOR_RESET   "\x1b[0m"
 
 int main(void){
     pid_t PID;
@@ -27,7 +29,7 @@ int main(void){
 
         //loop to print out seconds
         while(1) {
-            printf("Child process PID: %d, Seconds passed: %d\n", getpid(), count);
+            printf(ANSI_COLOR_GREEN "Child process PID: %d, Seconds passed: %d\n" ANSI_COLOR_RESET, getpid(), count);
             sleep(1);
             count++;
         }
