@@ -169,8 +169,8 @@ int main()
             if (pid == 0)
             {
                 // child
-                signal(SIGALRM, rip);
-                alarm(p->runtime);
+                // signal(SIGALRM, rip);
+                // alarm(p->runtime);
                 execve(p->name, NULL, NULL);
                 sleep(p->runtime);
                 kill(getpid(), SIGINT);
@@ -206,8 +206,8 @@ int main()
             if (pid == 0)
             {
                 // child
-                signal(SIGALRM, rip);
-                alarm(p->runtime);
+                // signal(SIGALRM, rip);
+                // alarm(p->runtime);
                 execve(p->name, NULL, NULL);
                 sleep(p->runtime);
                 kill(getpid(), SIGINT);
