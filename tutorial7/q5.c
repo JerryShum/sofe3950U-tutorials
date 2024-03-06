@@ -165,22 +165,14 @@ int main()
             if (pid == 0)
             {
                 sleep(p->runtime);
-                execlp(p->name, p->name, NULL);
+                // execlp(p->name, p->name, NULL);
                 kill(getpid(), SIGINT);
             }
             else
             {
                 p->pid = pid;
                 waitpid(p->pid, NULL, 0);
-                int success = kill(p->pid, SIGINT);
-                if (success == 0)
-                {
-                    printf("Process | %s | with pid | %d | has finished\n", p->name, p->pid);
-                }
-                else
-                {
-                    printf("Process | %s | with pid | %d | has failed to finish\n", p->name, p->pid);
-                }
+                printf("Process | %s | with pid | %d | has finished\n", p->name, p->pid);
                 p = delete_name(p->name);
                 q = queue;
             }
@@ -208,7 +200,7 @@ int main()
             {
                 // child
                 sleep(p->runtime);
-                execlp(p->name, p->name, NULL);
+                // execlp(p->name, p->name, NULL);
                 kill(getpid(), SIGINT);
             }
             else
@@ -216,15 +208,7 @@ int main()
                 // parent
                 p->pid = pid;
                 waitpid(p->pid, NULL, 0);
-                int success = kill(p->pid, SIGINT);
-                if (success == 0)
-                {
-                    printf("Process | %s | with pid | %d | has finished\n", p->name, p->pid);
-                }
-                else
-                {
-                    printf("Process | %s | with pid | %d | has failed to finish\n", p->name, p->pid);
-                }
+                printf("Process | %s | with pid | %d | has finished\n", p->name, p->pid);
                 q = queue;
             }
         }
