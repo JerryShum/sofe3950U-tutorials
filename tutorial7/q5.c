@@ -172,6 +172,7 @@ int main()
                 signal(SIGALRM, rip);
                 alarm(p->runtime);
                 execve(p->name, NULL, NULL);
+                sleep(p->runtime);
                 kill(getpid(), SIGINT);
             }
             else
@@ -208,6 +209,7 @@ int main()
                 signal(SIGALRM, rip);
                 alarm(p->runtime);
                 execve(p->name, NULL, NULL);
+                sleep(p->runtime);
                 kill(getpid(), SIGINT);
             }
             else
