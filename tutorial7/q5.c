@@ -165,7 +165,7 @@ int main()
             if (pid == 0)
             {
                 sleep(p->runtime);
-                // execlp(p->name, p->name, NULL);
+                execlp(p->name, p->name, NULL);
                 kill(getpid(), SIGINT);
             }
             else
@@ -200,7 +200,7 @@ int main()
             {
                 // child
                 sleep(p->runtime);
-                // execlp(p->name, p->name, NULL);
+                execlp(p->name, p->name, NULL);
                 kill(getpid(), SIGINT);
             }
             else
