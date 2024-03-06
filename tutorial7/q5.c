@@ -133,14 +133,14 @@ void free_queue()
     }
 }
 
-void print_queue() {
+void print_queue()
+{
     struct ll_node *curr = queue;
     while (curr != NULL)
     {
         printf("Name: %s, Priority: %d, Runtime: %d, PID: %d\n", curr->process.name, curr->process.priority, curr->process.runtime, curr->process.pid);
         curr = curr->next;
     }
-
 }
 
 int main()
@@ -165,7 +165,7 @@ int main()
             if (pid == 0)
             {
                 sleep(p->runtime);
-                execvp(p->name, NULL);
+                execlp(p->name, p->name, NULL);
                 kill(getpid(), SIGINT);
             }
             else
@@ -173,15 +173,20 @@ int main()
                 p->pid = pid;
                 waitpid(p->pid, NULL, 0);
                 int success = kill(p->pid, SIGINT);
-                if(success == 0) {
+                if (success == 0)
+                {
                     printf("Process | %s | with pid | %d | has finished\n", p->name, p->pid);
-                } else {
+                }
+                else
+                {
                     printf("Process | %s | with pid | %d | has failed to finish\n", p->name, p->pid);
                 }
                 p = delete_name(p->name);
                 q = queue;
             }
-        } else {
+        }
+        else
+        {
             q = q->next;
         }
     }
@@ -203,8 +208,8 @@ int main()
             {
                 // child
                 sleep(p->runtime);
-                execv(p->name, NULL);
-                kill(getpid(),SIGINT);
+                execlp(p->name, p->name, NULL);
+                kill(getpid(), SIGINT);
             }
             else
             {
@@ -212,9 +217,12 @@ int main()
                 p->pid = pid;
                 waitpid(p->pid, NULL, 0);
                 int success = kill(p->pid, SIGINT);
-                if(success == 0) {
+                if (success == 0)
+                {
                     printf("Process | %s | with pid | %d | has finished\n", p->name, p->pid);
-                } else {
+                }
+                else
+                {
                     printf("Process | %s | with pid | %d | has failed to finish\n", p->name, p->pid);
                 }
                 q = queue;
