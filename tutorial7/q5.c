@@ -143,6 +143,10 @@ void print_queue()
     }
 }
 
+void rip(int sig) {
+    kill(getpid(), SIGINT);
+}
+
 int main()
 {
     populate_queue();
@@ -164,9 +168,10 @@ int main()
             pid = fork();
             if (pid == 0)
             {
-                sleep(p->runtime);
-                execlp(p->name, p->name, NULL);
-                kill(getpid(), SIGINT);
+                // child
+                signal(SIGALRM, rip);
+                alarm(p->runtime);
+                execve(p->name, NULL, NULL);
             }
             else
             {
@@ -199,9 +204,9 @@ int main()
             if (pid == 0)
             {
                 // child
-                sleep(p->runtime);
-                execlp(p->name, p->name, NULL);
-                kill(getpid(), SIGINT);
+                signal(SIGALRM, rip);
+                alarm(p->runtime);
+                execve(p->name, NULL, NULL);
             }
             else
             {
