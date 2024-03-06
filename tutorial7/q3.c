@@ -15,16 +15,14 @@
 #define SLEEP_TIME 5
 
 int main(void){
-    pid_t child_PID;
+    pid_t PID;
 
     //fork
-    child_PID = fork();
-    if(child_PID == -1){
-        printf(stderr, "Fork Failed\n");
-    }
+    PID = fork();
+  
 
     //child process
-    if(child_PID == 0){
+    if(PID == 0){
         int count = 0;
 
         //loop to print out seconds
@@ -39,7 +37,7 @@ int main(void){
         sleep(SLEEP_TIME); //sleep 5
 
         //kill()
-        kill(child_PID, SIGINT);
+        kill(PID, SIGINT);
     }
 
     return 0;
