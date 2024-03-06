@@ -18,9 +18,51 @@
 
 // List of 3 categories as array of strings
 static char categories[NUM_CATEGORIES][MAX_LEN] = {
-    "programming", 
-    "algorithms", 
+    "programming",
+    "algorithms",
     "databases"
+};
+
+static char questionsstrings[NUM_CATEGORIES][NUM_QUESTIONS][MAX_LEN] = {
+    {
+        "What language is this game written in?",
+        "The C language has the type int. True or False?",
+        "What is the 1+1?",
+        "What is 2*3?"
+    },
+    {
+        "True or False? O(N) is less than O(N^2).",
+        "True or False? O(N) is greater than O(log N).",
+        "What is the complexity of a linear loop? (in terms of big O notation)",
+        "What is the complexity of two nested loops? (in terms of big O notation)"
+    },
+    {
+        "True or False? Relational databases are the same as non-SQL databases.",
+        "True or False? MySQL is a relational database.",
+        "True or False? Databases are used to store data.",
+        "True or False? Decentralized databases exist."
+    }
+};
+
+static char answerstrings[NUM_CATEGORIES][NUM_QUESTIONS][MAX_LEN] = {
+    {
+        "C",
+        "True",
+        "2",
+        "6"
+    },
+    {
+        "True",
+        "True",
+        "O(N)",
+        "O(N^2)"
+    },
+    {
+        "False",
+        "True",
+        "True",
+        "True"
+    }
 };
 
 // Questions struct for each question
