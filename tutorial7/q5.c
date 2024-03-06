@@ -171,7 +171,7 @@ int main()
                 // child
                 // signal(SIGALRM, rip);
                 // alarm(p->runtime);
-                execve(p->name, NULL, NULL);
+                execlp(p->name, p->name, NULL);
                 sleep(p->runtime);
                 kill(getpid(), SIGINT);
             }
@@ -208,7 +208,7 @@ int main()
                 // child
                 // signal(SIGALRM, rip);
                 // alarm(p->runtime);
-                execve(p->name, NULL, NULL);
+                execlp(p->name, p->name, NULL);
                 sleep(p->runtime);
                 kill(getpid(), SIGINT);
             }
