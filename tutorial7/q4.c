@@ -5,8 +5,8 @@
 #include <unistd.h>
 #include <signal.h>
 
-#define ANSI_COLOR_BLUE     "\x1b[34m"
-#define ANSI_COLOR_RESET   "\x1b[0m"
+#define ANSI_COLOR_BLUE "\x1b[34m"
+#define ANSI_COLOR_RESET "\x1b[0m"
 
 // - Forks and executes process using the fork and exec
 // - Sleeps for 5 seconds
@@ -19,33 +19,35 @@
 // output will stop for 10 seconds once it’s suspended and resume again until
 // the program terminates
 
-int main(void){
+int count = 1;
+
+int main(void)
+{
     pid_t PID;
 
     PID = fork();
 
-    //child
-    if(PID == 0 ){
-        int count = 1;
-
-        //loop to print out seconds and PID
-        while(1) {
-            printf(ANSI_COLOR_BLUE "Child process PID: %d, Seconds passed: %d\n" ANSI_COLOR_RESET , getpid(), count);
+    // child
+    if (PID == 0)
+    {
+        // loop to print out seconds and PID
+        while (1)
+        {
+            printf(ANSI_COLOR_BLUE "Child process PID: %d, Seconds passed: %d\n" ANSI_COLOR_RESET, getpid(), count);
             sleep(1);
             count++;
         }
-
-    }else{ //parent
-        sleep(5); //sleep 5 seconds
-        kill(PID,SIGTSTP);//SIGSTP suspend child
-        sleep(10); //sleep 10 seconds
-        kill(PID, SIGCONT); //SIGCONT to continue child
-        sleep(5); //sleep 5
-        kill(PID, SIGKILL); //kill child
+    }
+    else
+    {                       // parent
+        sleep(5);           // sleep 5 seconds
+        kill(PID, SIGTSTP); // SIGSTP suspend child
+        sleep(10);          // sleep 10 seconds
+        kill(PID, SIGCONT); // SIGCONT to continue child
+        sleep(5);           // sleep 5
+        kill(PID, SIGINT); // kill child
         waitpid(PID, NULL, 0);
     }
 
     return 0;
-
-
 }
