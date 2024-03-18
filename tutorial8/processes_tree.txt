@@ -1,0 +1,7 @@
+NULL, kernel, 0, 128
+kernel, bash, 1, 64
+kernel, zsh, 1, 64
+bash, sublime, 3, 256
+bash, gedit, 3, 128
+zsh, eclipse, 3, 1024
+zsh, chrome, 3, 2048
